@@ -23,9 +23,9 @@ from models import RequestLog
 
 
 def create_app(config_class: object = DevelopmentConfig) -> object:
-    with open("logging.yaml", "r") as f:
-        logging_config = yaml.safe_load(f.read())
-        logging.config.dictConfig(logging_config)
+    #with open("logging.yaml", "r") as f:
+    #    logging_config = yaml.safe_load(f.read())
+    #    logging.config.dictConfig(logging_config)
     app = Flask(__name__)
     app.db = SQLAlchemy()
     app.config.from_object(config_class)
