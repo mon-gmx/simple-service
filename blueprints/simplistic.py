@@ -26,10 +26,11 @@ def data() -> None:
         try:
             return jsonify({'remote_random_data': get_random(remote_url=current_app.config.get("REMOTE_RANDOM_URL"))})
         except (TypeError, ValueError, Exception) as error:
-            log.error(f"Downstream call failed with error: {error}")
+            logger.error(f"Downstream call failed with error: {error}")
             abort(503)
     elif request.method == 'POST':
         return jsonify(request.get_json())
+
 
 @simplistic_bp.route('/error', methods=['GET'])
 def error() -> None:
@@ -37,15 +38,18 @@ def error() -> None:
     errors = [400, 401, 404, 419, 429, 500, 503]
     return '', random.choice(errors)
 
+
 @simplistic_bp.route('/metrics', methods=['GET'])
 def metrics() -> None:
     """ Emit prometheus metrics for being scrapped """
     return generate_latest(), 200
 
+
 @simplistic_bp.before_request
 def start_timer() -> None:
     """ Set the start time of a request """
     request.start_time = get_now_time()
+
 
 @simplistic_bp.after_request
 def log_request(response) -> None:

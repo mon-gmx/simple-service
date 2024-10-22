@@ -1,8 +1,7 @@
 import logging
 from logging.handlers import RotatingFileHandler
 
-import yaml
-from flask import Flask, jsonify, request
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from opentelemetry import trace
 from opentelemetry.exporter.jaeger.thrift import JaegerExporter
@@ -18,8 +17,6 @@ from opentelemetry.sdk.trace.export import (BatchSpanProcessor,
 from prometheus_client import CollectorRegistry
 
 from blueprints.simplistic import simplistic_bp
-from config import DevelopmentConfig, TestConfig
-from models import RequestLog
 
 
 def setup_logging(app_logger, log_file):
@@ -32,7 +29,6 @@ def setup_logging(app_logger, log_file):
 
     if not app_logger.hasHandlers():
         app_logger.addHandler(log_handler)
-
 
 
 def create_app(config_class: object = DevelopmentConfig) -> object:

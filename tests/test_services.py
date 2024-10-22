@@ -1,5 +1,4 @@
-from unittest.mock import Mock, patch
-import pytest
+from unittest.mock import Mock
 from services import get_random
 
 
@@ -24,5 +23,4 @@ def test_get_random_failure(mock_remote_get_random) -> None:
 
     mock_remote_get_random.assert_called_once_with('http://1.1.1.1/data')
 
-    assert len(result) == 36 # uuid4 is 36 char long, this could be tested using ValueError
-
+    assert len(result) == 36  # uuid4 is 36 char long, this could be tested using ValueError

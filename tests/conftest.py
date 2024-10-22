@@ -2,8 +2,6 @@ import pytest
 from app import create_app
 from config import TestConfig
 from models import Base
-from unittest.mock import patch, Mock
-
 
 @pytest.fixture(scope="session")
 def app() -> object:

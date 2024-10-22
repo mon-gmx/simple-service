@@ -1,7 +1,3 @@
-from unittest.mock import patch, Mock
-import pytest
-
-
 def test_data_get(client, init_db) -> None:
     response = client.get("/data")
     assert response.status_code == 200
