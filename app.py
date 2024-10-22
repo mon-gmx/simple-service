@@ -1,5 +1,5 @@
 import logging
-import logging.config
+from logging.handlers import RotatingFileHandler
 
 import yaml
 from flask import Flask, jsonify, request
@@ -22,13 +22,24 @@ from config import DevelopmentConfig, TestConfig
 from models import RequestLog
 
 
+def setup_logging(app_logger, log_file):
+    log_handler = RotatingFileHandler(log_file, maxBytes=5 * 1024 * 1024, backupCount=3)
+    formatter = logging.Formatter(
+        '%(asctime)s - %(levelname)s - %(message)s'
+    )
+    log_handler.setFormatter(formatter)
+    log_handler.setLevel(logging.INFO)
+
+    if not app_logger.hasHandlers():
+        app_logger.addHandler(log_handler)
+
+
+
 def create_app(config_class: object = DevelopmentConfig) -> object:
-    #with open("logging.yaml", "r") as f:
-    #    logging_config = yaml.safe_load(f.read())
-    #    logging.config.dictConfig(logging_config)
     app = Flask(__name__)
     app.db = SQLAlchemy()
     app.config.from_object(config_class)
+    setup_logging(app_logger=app.logger, log_file=app.config.get("LOGFILE", "app.log"))
     registry = CollectorRegistry()
 
     # Initialize the database
