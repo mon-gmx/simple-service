@@ -3,7 +3,7 @@ import uuid
 
 import requests
 
-log = logging.getLogger('app_logger')
+log = logging.getLogger("app_logger")
 
 
 def get_random(remote_url: str) -> dict:

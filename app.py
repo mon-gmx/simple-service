@@ -17,13 +17,12 @@ from opentelemetry.sdk.trace.export import (BatchSpanProcessor,
 from prometheus_client import CollectorRegistry
 
 from blueprints.simplistic import simplistic_bp
+from config import DevelopmentConfig
 
 
 def setup_logging(app_logger, log_file):
     log_handler = RotatingFileHandler(log_file, maxBytes=5 * 1024 * 1024, backupCount=3)
-    formatter = logging.Formatter(
-        '%(asctime)s - %(levelname)s - %(message)s'
-    )
+    formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
     log_handler.setFormatter(formatter)
     log_handler.setLevel(logging.INFO)
 

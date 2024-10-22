@@ -3,7 +3,9 @@ class Config:
     TESTING = False
     LOGFILE = "app.log"
     REMOTE_RANDOM_URL = "http://localhost/data"
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://user:password@database-server/simpleservice"
+    SQLALCHEMY_DATABASE_URI = (
+        "postgresql+psycopg2://user:password@database-server/simpleservice"
+    )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     USE_OTEL = False
     JAEGER_SETTINGS = {}

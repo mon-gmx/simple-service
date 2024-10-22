@@ -1,7 +1,11 @@
+from unittest.mock import patch
+
 import pytest
+
 from app import create_app
 from config import TestConfig
 from models import Base
+
 
 @pytest.fixture(scope="session")
 def app() -> object:
@@ -28,5 +32,5 @@ def init_db(app) -> None:
 @pytest.fixture
 def mock_remote_get_random() -> None:
     """Fixture to send a GET request to a downstream"""
-    with patch('requests.get') as mock_get:
+    with patch("requests.get") as mock_get:
         yield mock_get
