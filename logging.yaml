@@ -17,7 +17,7 @@ handlers:
 loggers:
   app_logger:
     level: INFO
-    handlers: [file_handler]
+    handlers: []
     propagate: no
 
 root:
