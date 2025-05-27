@@ -1,6 +1,7 @@
 import logging
 from logging.handlers import RotatingFileHandler
 
+from faker import Faker
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from opentelemetry import trace
@@ -36,6 +37,7 @@ def create_app(config_class: object = DevelopmentConfig) -> object:
     app.config.from_object(config_class)
     setup_logging(app_logger=app.logger, log_file=app.config.get("LOGFILE", "app.log"))
     registry = CollectorRegistry()
+    app.faker = Faker()
 
     # Initialize the database
     app.db.init_app(app)
