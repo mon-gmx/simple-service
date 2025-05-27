@@ -1,5 +1,6 @@
 import logging
 import random
+import uuid
 
 from flask import Blueprint, abort, current_app, jsonify, request
 from prometheus_client import Counter, Histogram, generate_latest
@@ -77,3 +78,18 @@ def log_request(response) -> None:
     current_app.db.session.commit()
 
     return response
+
+@simplistic_bp.route("/random", methods=["GET"])
+def get_random_json() -> None:
+    fake = current_app.faker
+    message = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(64))
+    return jsonify(
+        {
+            "timestamp": datetime.datetime.now().isoformat(),
+            "id": str(uuid.uuid4()),
+            "email": fake.email(),
+            "score": round(random.uniform(0, 100), 2),
+            "is_active": random.choice([True, False]),
+            "message": message,
+        }
+    )
