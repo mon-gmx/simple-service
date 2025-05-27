@@ -1,7 +1,7 @@
 """create requests table
 
 Revision ID: 17a4bc52aac3
-Revises: 
+Revises:
 Create Date: 2024-10-15 12:34:43.774148
 
 """
