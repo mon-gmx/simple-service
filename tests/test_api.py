@@ -12,5 +12,5 @@ def test_data_post(client, init_db) -> None:
 
 
 def test_error(client, init_db) -> None:
-    response = client.get("/error")
+    response = client.get("/errors")
     assert response.status_code in [400, 401, 404, 419, 429, 500, 503]
