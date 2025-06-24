@@ -40,7 +40,7 @@ def data() -> None:
         return jsonify(request.get_json())
 
 
-@simplistic_bp.route("/error", methods=["GET"])
+@simplistic_bp.route("/errors", methods=["GET"])
 def error() -> None:
     """Return a random HTTP error"""
     errors = [400, 401, 404, 419, 429, 500, 503]
